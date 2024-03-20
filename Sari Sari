@@ -1,0 +1,282 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+using namespace std;
+
+// Function declarations
+bool login();
+void registration();
+void forgot();
+void welcome();
+void calculate();
+int displayMenu();
+int getQuantity();
+
+// Global variables
+int count = 0;
+string userId, password;
+int option;
+
+int choice;
+
+double totalPrice;
+const double CoffeePrice = 3;
+const double MiloPrice = 3;
+const double JuicePrice = 10;
+const double RicePrice = 45;
+const double CornedbeefPrice = 50;
+const double TunaPrice = 35;
+const double SardinesPrice = 25;
+const double PancitCantonPrice = 17;
+const double PotatoChipsPrice = 20;
+const double SoftDrinksPrice = 17;
+const double SoapPrice = 20;
+const double ShampooPrice = 25;
+int CoffeeQuantity, MiloQuantity, JuiceQuantity, RiceQuantity, CornedbeefQuantity, TunaQuantity, SardinesQuantity, PancitCantonQuantity, PotatoChipsQuantity, SoftDrinksQuantity, SoapQuantity, ShampooQuantity;
+int main() {
+    welcome();
+    return 0;
+}
+
+// Function definitions
+
+bool login() {
+    string id, pass;
+    system("cls");
+    cout << "\t\t\t Please enter the username and password " << endl;
+    cout << "\t\t\t USERNAME : ";
+    cin >> userId;
+    cout << "\t\t\t PASSWORD : ";
+    cin >> password;
+
+    ifstream input("records.txt");
+
+    while (input >> id >> pass) {
+        if (id == userId && pass == password) {
+            count = 1;
+            system("cls");
+            break;
+        }
+    }
+
+    input.close();
+
+    if (count == 1) {
+        cout << userId << "\n\n Your LOGIN is successful \n\n Thanks for logging in ! \n\n";
+        displayMenu();
+        return true;
+    } else {
+        cout << "\n LOGIN ERROR \n Please check your username and password.\n";
+        return false;
+    }
+}
+
+void registration() {
+    system("cls");
+    cout << "\t\t\t Enter the username : ";
+    cin >> userId;
+    cout << "\t\t\t Enter the password : ";
+    cin >> password;
+
+    ofstream f1("records.txt", ios::app);
+    f1 << userId << ' ' << password << endl;
+    system("cls");
+    cout << "\n\t\t\t Registration is successful! \n";
+    welcome();
+}
+
+void forgot() {
+    system("cls");
+    cout << "\t\t\t You forgot your password?\n\t\t\t No worries, this will only take a moment. \n";
+    cout << "\n\t\t\t Press 1 to search your ID by username " << endl;
+    cout << "\t\t\t Press 2 to go back to the Main Menu " << endl;
+    cout << "\n\t\t\t Enter your choice : ";
+    cin >> option;
+    switch (option) {
+        case 1: {
+            int count = 0;
+            string suserId, sId, spass;
+            cout << "\n\t\t\t Enter the previous username you remember :";
+            cin >> suserId;
+
+            ifstream f2("records.txt");
+            while (f2 >> sId >> spass) {
+                if (sId == suserId) {
+                    count = 1;
+                    cout << "\n\n Your account is found! \n";
+                    cout << "\n\n Your password is : " << spass << endl;
+                    break;
+                }
+            }
+            f2.close();
+            if (count == 0) {
+                cout << "\n\t Sorry! Your account was not found! \n";
+            }
+            break;
+        }
+
+        case 2:
+            break;
+
+        default:
+            cout << "\t\t\t Wrong choice! Please try again" << endl;
+    }
+}
+
+void welcome() {
+    int c;
+    cout << "\t\t     	 _____________________________________________________________________\n";
+    cout <<"\t\t\t|                Welcome to our store! Please login.                  |\n";
+    cout << "\t\t\t|____________________          MENU       ____________________________|\n\n\n";
+    cout << "                                                                         \n\n";
+    cout << "\t _________________________________________________" << endl;
+    cout << "\t| Press 1 to LOGIN                                |" << endl;
+    cout << "\t| Press 2 to REGISTER                             |" << endl;
+    cout << "\t| Press 3 if you forgot your PASSWORD             |" << endl;
+    cout << "\t| Press 4 to PROCEED shopping                     |" << endl;
+    cout << "\t -------------------------------------------------" << endl;
+    cout << "\n\t\t\t Please enter your choice: ";
+    cin >> c;
+    cout << endl;
+
+    switch (c) {
+        case 1:
+            login();
+            break;
+
+        case 2:
+            registration();
+            break;
+
+        case 3:
+            forgot();
+            break;
+
+        case 4:
+            cout << "\t\t\t Thank you! \n\n";
+            displayMenu();
+            break;
+
+        default:
+            system("cls");
+            cout << "\t\t\t Please select from the options given above \n"
+                 << endl;
+            main();
+    }
+}
+
+double calculateTotalPrice(int quantity, double pricePerItem) {
+    return quantity * pricePerItem;
+}
+
+
+int displayMenu() {
+    cout << "Welcome to our Sari-Sari Store!\n" << endl;
+    cout << "1. Buy >> Coffee <<- 3 PHP”<< endl;
+    cout << "2. Buy >> Milo <<- 3 PHP" << endl;
+    cout << "3. Buy >> Juice Powder <<- 10 PHP"<< endl;
+    cout << "4. Buy >> Rice <<- 45 PHP”<< endl;
+    cout << "5. Buy >> Corned Beef <<- 50 PHP"<< endl;
+    cout << "6. Buy >> Tuna <<- 35 PHP"<< endl;
+    cout << "7. Buy >> Sardines <<- 25 PHP"<< endl;
+    cout << "8. Buy >> Pancit Canton <<- 17 PHP" << endl;
+    cout << "9. Buy >> Potato Chips <<- 20 PHP"<< endl;
+    cout << "10. Buy >> Soft Drinks <<- 17 PHP" << endl;
+    cout << "11. Buy >> Soap <<- 20 PHP"<<endl;
+    cout << "12. Buy >> Shampoo <<- 25 PHP"<< endl;
+    cout << "13. >> Check Out <<" << endl;
+
+    int choice;
+    cout << "Enter your choice: ";
+    cin >> choice;
+    if(choice==13){
+        cout << "Total price: PHP " << totalPrice << endl;
+        double amountPaid;
+        double change;
+        cout << "Enter the amount you want to pay: PHP ";
+        cin >> amountPaid;
+        // Calculate and display the change
+        change = amountPaid - totalPrice;
+        if (change >= 0) {
+            cout << "Thank you for your payment! Your change: PHP" << change << "\n Thank you for shopping with us, "<< userId<<"!" << endl;
+        } else {
+            cout << "Insufficient payment. Please provide enough money." << endl;
+        }
+        return 0;
+
+    }else if(choice ==1){
+        cout << "You chose Coffee." << endl;
+        CoffeeQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(CoffeeQuantity, CoffeePrice);
+
+    }else if(choice ==2){
+        cout << "You chose Milo." << endl;
+        MiloQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(MiloQuantity, MiloPrice);
+
+    }else if(choice ==3){
+        cout << "You chose Juice Powder." << endl;
+        JuiceQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(JuiceQuantity, JuicePrice);
+
+    }else if(choice ==4){
+        cout << "You chose Rice." << endl;
+        RiceQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(RiceQuantity, RicePrice);
+    }else if(choice ==5){
+        cout << "You chose Corned Beef." << endl;
+        CornedbeefQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(CornedbeefQuantity, CornedbeefPrice);
+
+    }else if(choice ==6){
+        cout << "You chose Tuna." << endl;
+        TunaQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(TunaQuantity, TunaPrice);
+
+    }else if(choice ==7){
+        cout << "You chose Sardines." << endl;
+        SardinesQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(SardinesQuantity, SardinesPrice);
+
+    }else if(choice ==8){
+        cout << "You chose Pancit Canton." << endl;
+        PancitCantonQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(PancitCantonQuantity, PancitCantonPrice);
+
+    }else if(choice ==9){
+        cout << "You chose Potato Chips." << endl;
+        PotatoChipsQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(PotatoChipsQuantity, PotatoChipsPrice);
+
+    }else if(choice ==10){
+        cout << "You chose Soft Drinks." << endl;
+        SoftDrinksQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(SoftDrinksQuantity, SoftDrinksPrice);
+
+    }else if(choice ==11){
+        cout << "You chose Soap." << endl;
+        SoapQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(SoapQuantity, SoapPrice);
+
+    }else if(choice ==12){
+        cout << "You chose Shampoo." << endl;
+        ShampooQuantity = getQuantity();
+        totalPrice += calculateTotalPrice(ShampooQuantity, ShampooPrice);
+
+    }
+    choice = displayMenu();
+
+}
+
+int getQuantity() {
+    int quantity;
+    cout << "Enter quantity: ";
+    cin >> quantity;
+
+    if (quantity <= 0) {
+        cout << "Invalid quantity. Please enter a positive number." << endl;
+        return getQuantity();
+    }
+
+    return quantity;
+}
