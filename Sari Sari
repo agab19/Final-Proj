@@ -12,6 +12,7 @@ void calculate();
 int displayMenu();
 int getQuantity();
 
+
 // Global variables
 int count = 0;
 string userId, password;
@@ -172,18 +173,18 @@ double calculateTotalPrice(int quantity, double pricePerItem) {
 
 int displayMenu() {
     cout << "Welcome to our Sari-Sari Store!\n" << endl;
-    cout << "1. Buy >> Coffee <<- 3 PHP”<< endl;
-    cout << "2. Buy >> Milo <<- 3 PHP" << endl;
-    cout << "3. Buy >> Juice Powder <<- 10 PHP"<< endl;
-    cout << "4. Buy >> Rice <<- 45 PHP”<< endl;
-    cout << "5. Buy >> Corned Beef <<- 50 PHP"<< endl;
-    cout << "6. Buy >> Tuna <<- 35 PHP"<< endl;
-    cout << "7. Buy >> Sardines <<- 25 PHP"<< endl;
-    cout << "8. Buy >> Pancit Canton <<- 17 PHP" << endl;
-    cout << "9. Buy >> Potato Chips <<- 20 PHP"<< endl;
-    cout << "10. Buy >> Soft Drinks <<- 17 PHP" << endl;
-    cout << "11. Buy >> Soap <<- 20 PHP"<<endl;
-    cout << "12. Buy >> Shampoo <<- 25 PHP"<< endl;
+    cout << "1. Buy >> Coffee <<" << endl;
+    cout << "2. Buy >> Milo <<" << endl;
+    cout << "3. Buy >> Juice Powder <<" << endl;
+    cout << "4. Buy >> Rice <<" << endl;
+    cout << "5. Buy >> Corned Beef <<" << endl;
+    cout << "6. Buy >> Tuna <<" << endl;
+    cout << "7. Buy >> Sardines <<" << endl;
+    cout << "8. Buy >> Pancit Canton <<" << endl;
+    cout << "9. Buy >> Potato Chips <<" << endl;
+    cout << "10. Buy >> Soft Drinks <<" << endl;
+    cout << "11. Buy >> Soap <<" << endl;
+    cout << "12. Buy >> Shampoo <<" << endl;
     cout << "13. >> Check Out <<" << endl;
 
     int choice;
@@ -279,4 +280,5 @@ int getQuantity() {
     }
 
     return quantity;
+
 }
